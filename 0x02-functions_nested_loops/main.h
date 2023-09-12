@@ -2,6 +2,7 @@
 #define main_h
 
 #include <stdio.h>
+int _putchar(char c);
 void print_alphabet(void);
 void jack_bauer(void);
 void print_alphabet_x10(void);
