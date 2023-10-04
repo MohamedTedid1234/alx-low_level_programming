@@ -1,43 +1,64 @@
-#include "main.h"
+#include "holberton.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * strtow - splits a string into words.
- * @str: the string
- *
- * Return: returns a pointer to an array of strings (words)
+ * strtow - concatenates all the arguments of your program
+ *@str: string
+ *@av: arguments
+ * Return: a pointer to a new string
  */
 char **strtow(char *str)
 {
-	int i, flag, len;
-	char **words;
+	int i, w, j, k, count, m, wordf;
+	char **p;
+	char *x;
 
-	if (str == NULL || str[0] == '\0' || (str[0] == ' ' && str[1] == '\0'))
+	w = 0;
+	j = 0;
+	i = 0;
+	count = 0;
+	if (*str == '\0' || str == NULL)
 		return (NULL);
-
-	i = flag = len = 0;
-	while (str[i])
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (flag == 0 && str[i] != ' ')
-			flag = 1;
-		if (i > 0 && str[i] == ' ' && str[i - 1] != ' ')
-		{
-			flag = 0;
-			len++;
-		}
-		i++;
+		if (str[i] == ' ' && (str[i + 1] != ' ' || str[i + 1] == '\0'))
+			w++;
 	}
-
-	len += flag == 1 ? 1 : 0;
-	if (len == 0)
+	p = (char **)malloc((w + 1) * sizeof(char *));
+	if (p == NULL)
 		return (NULL);
-
-	words = (char **)malloc(sizeof(char *) * (len + 1));
-	if (words == NULL)
-		return (NULL);
-
-	util(words, str);
-	words[len] = NULL;
-	return (words);
+	for (wordf = 0; str[wordf] && j <= w; wordf++)
+	{
+		count = 0;
+		if (str[wordf] != ' ')
+		{
+			for (i = wordf ; str[i] != '\0'; i++)
+			{
+				if (str[i] == ' ')
+					break;
+				count++;
+			}
+			*(p + j) = (char *)malloc((count + 1) * sizeof(char));
+			if (*(p + j) == NULL)
+			{
+				for (k = 0; k <= j; k++)
+				{
+					x = p[k];
+					free(x);
+				}
+				free(p);
+				return (NULL);
+			}
+			for (m = 0; wordf < i; wordf++)
+			{
+				p[j][m] = str[wordf];
+				m++;
+			}
+			p[j][m] = '\0';
+			j++;
+		}
+	}
+	p[j] = NULL;
+	return (p);
 }
-
