@@ -1,11 +1,14 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
 
+void util(char **, char *);
+void create_word(char **, char *, int, int, int);
+
 /**
- * strtow - concatenates all the arguments of your program
- *@str: string
- * Return: a pointer to a new string
+ * strtow - splits a string into words.
+ * @str: the string
+ *
+ * Return: returns a pointer to an array of strings (words)
  */
 char **strtow(char *str)
 {
@@ -40,3 +43,4 @@ char **strtow(char *str)
 	words[len] = NULL;
 	return (words);
 }
+
